@@ -9,12 +9,16 @@ class Deck(metaclass=Singleton):
         def __init__(self, value, suit):
             self.__value = value
             self.__suit = suit
+            self.__deck = Deck()
 
         def value(self):
             return self.__value
 
         def suit(self):
             return self.__suit
+
+        def discard(self):
+            self.__deck.discard([self])
 
     def __init__(self):
         self.__discarded = []
