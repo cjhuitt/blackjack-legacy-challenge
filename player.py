@@ -12,6 +12,9 @@ class Player():
     def money(self):
         return self.__money
 
+    def cards(self):
+        return self.__cards
+
     def dealCard(self):
         self.__cards.append(Deck().draw())
 
