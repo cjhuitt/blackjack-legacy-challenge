@@ -58,7 +58,8 @@ class Player():
         pass
 
     def endHand(self):
-        Deck().discard(self.__cards)
+        for card in self.__cards:
+            card.discard()
         self.__cards = []
 
     def score(self):

@@ -1,5 +1,7 @@
 # Blackjack Refactoring Challenge #
 
+**_IN PROGRESS.  The code is already terrible, but it's not complete._**
+
 You've been hired by an online casino to maintain their blackjack program.
 Apparently, the previous developers all quit.  Good luck.
 
