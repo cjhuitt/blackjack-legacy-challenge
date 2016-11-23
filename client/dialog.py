@@ -47,11 +47,13 @@ class BlackjackDialog(tk.Frame):
         self.buttonHit = tk.Button(self.frameCommands)
         self.buttonHit['text'] = 'Hit Me'
         self.buttonHit['command'] = self.onHit
+        self.buttonHit['state'] = tk.DISABLED
         self.buttonHit.pack(side='left')
 
         self.buttonStay = tk.Button(self.frameCommands)
         self.buttonStay['text'] = 'Stay'
         self.buttonStay['command'] = self.onStay
+        self.buttonStay['state'] = tk.DISABLED
         self.buttonStay.pack(side='left')
 
     def onWager(self):
