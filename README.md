@@ -1,6 +1,12 @@
-# Blackjack Refactoring Challenge #
+# Blackjack Legacy Challenge #
 
 **_IN PROGRESS.  The code is already terrible, but it's not complete._**
+
+This codebase is intended as a sort of refactoring/TDD super-kata.  It is
+larger and more complex than typical katas, it has no tests, and it has _lots_
+of problems.  Once you are comfortable with TDD and refactoring, try applying
+those techniques to this awful legacy code.
+
 
 ## Scenario ##
 
