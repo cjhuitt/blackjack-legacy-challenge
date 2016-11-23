@@ -5,6 +5,7 @@ from dealer import Dealer
 from deck import Deck
 from player import Player
 from singleton import Singleton
+import time
 
 
 class Game(metaclass=Singleton):
@@ -85,4 +86,5 @@ class Game(metaclass=Singleton):
             player.endHand()
         self.__dealer.endHand()
         Deck().shuffle()
+        time.sleep(5)
         Comm().send('reset')

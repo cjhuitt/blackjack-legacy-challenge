@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 from comm import Comm
+from threading import Lock
+import queue
 import tkinter as tk
 
 class BlackjackDialog(tk.Frame):
@@ -17,7 +19,7 @@ class BlackjackDialog(tk.Frame):
         self.labelDealer.pack(side='top')
 
         self.labelDealerCards = tk.Label(self.frameCards)
-        self.labelDealerCards['text'] = '____'
+        self.labelDealerCards['text'] = ''
         self.labelDealerCards.pack(side='top')
 
         self.frameWager = tk.Frame(self.frameCards)
@@ -36,7 +38,7 @@ class BlackjackDialog(tk.Frame):
         self.buttonWager.pack(side='left')
 
         self.labelPlayerCards = tk.Label(self.frameCards)
-        self.labelPlayerCards['text'] = '____'
+        self.labelPlayerCards['text'] = ''
         self.labelPlayerCards.pack(side='bottom')
 
         self.labelPlayer = tk.Label(self.frameCards)
@@ -58,11 +60,44 @@ class BlackjackDialog(tk.Frame):
         self.buttonStay['state'] = tk.DISABLED
         self.buttonStay.pack(side='left')
 
+        self.lock = Lock()
+        self.messages = queue.Queue()
         Comm().set_listener(self)
+        self.after(100, self.processMessages)
+
+    def processMessages(self):
+        while True:
+            try:
+                with self.lock:
+                    message = self.messages.get(block=False)
+                name, *params = message.split(' ')
+                if name == 'deal':
+                    self.onDeal(*params)
+                elif name == 'win':
+                    pass
+                elif name == 'push':
+                    pass
+                elif name == 'lose':
+                    pass
+                elif name == 'reset':
+                    self.onReset(*params)
+            except queue.Empty:
+                break
+        self.after(100, self.processMessages)
+
+    def onReset(self):
+        self.labelDealerCards['text'] = ''
+        self.labelPlayerCards['text'] = ''
+        # TODO: More
+
+    def onDeal(self, player, card):
+        if player == 'dealer':
+            self.labelDealerCards['text'] += card + ' '
+        # TODO: Update player cards.
 
     def handle_message(self, message):
-        # TODO
-        print(message)
+        with self.lock:
+            self.messages.put(message)
 
     def onWager(self):
         Comm().send('wager {0} {1}'.format('player', self.spinWager.get()))
