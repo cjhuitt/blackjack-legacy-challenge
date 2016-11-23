@@ -22,3 +22,8 @@ employer's profits.  Anything that enables cheating or irritates the gaming
 commision falls into this category.  Such bugs take top priority.  Any other
 bugs are lowest priority, so you can work on them if you manage to fix all
 high-priority bugs _and_ implement all the feature requests.
+
+One more thing: The protocol used to communicate between the client and the
+server must remain backwards-compatible.  It should be possible to connect any
+version of the client to any version of the server and use the features that
+are present in both.
