@@ -10,3 +10,6 @@ class Dealer(Player):
     def play(self):
         while(self.score() < 17):
             self.hit()
+
+    def name(self):
+        return 'dealer'

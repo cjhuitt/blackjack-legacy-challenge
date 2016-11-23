@@ -11,6 +11,16 @@ class Deck(metaclass=Singleton):
             self.__value = value
             self.__suit = suit
 
+        def __str__(self):
+            suits = {
+                'hearts': '♥',
+                'clubs': '♣',
+                'diamonds': '♦',
+                'spades': '♠'
+            }
+            values = [ '', 'A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K' ];
+            return values[self.__value] + suits[self.__suit]
+
         def value(self):
             return self.__value
 

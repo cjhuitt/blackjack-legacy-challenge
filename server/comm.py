@@ -31,7 +31,11 @@ class Comm(metaclass=Singleton):
             return
         data = message.encode('utf-8')
         data_len = struct.pack('>i', len(data))
-        self.socket.send(data + data_len)
+        try:
+            self.socket.send(data_len + data)
+        except Exception:
+            self.socket.close()
+            self.socket = None
 
     def receive(self):
         if self.socket is None:

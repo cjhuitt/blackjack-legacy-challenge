@@ -9,6 +9,9 @@ class Player():
         self.__money = money
         self.__bet = 0
 
+    def name(self):
+        return 'player'
+
     def money(self):
         return self.__money
 
@@ -16,7 +19,9 @@ class Player():
         return self.__cards
 
     def dealCard(self):
-        self.__cards.append(Deck().draw())
+        card = Deck().draw()
+        self.__cards.append(card)
+        return card
 
     def wager(self, amount):
         if self.__money < amount:

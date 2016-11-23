@@ -58,6 +58,12 @@ class BlackjackDialog(tk.Frame):
         self.buttonStay['state'] = tk.DISABLED
         self.buttonStay.pack(side='left')
 
+        Comm().set_listener(self)
+
+    def handle_message(self, message):
+        # TODO
+        print(message)
+
     def onWager(self):
         Comm().send('wager {0}'.format(self.spinWager.get()))
         # TODO: Update UI state?

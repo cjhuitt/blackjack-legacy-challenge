@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from singleton import Singleton
-from threading import Thread
+from threading import Lock, Thread
 import socket
 import ssl
 import struct
@@ -10,6 +10,8 @@ import struct
 class Comm(Thread, metaclass=Singleton):
     def __init__(self):
         super().__init__()
+        self.listener = None
+        self.lock = Lock()
         self.start()
 
     def run(self):
@@ -22,8 +24,13 @@ class Comm(Thread, metaclass=Singleton):
                 self.__dispatch(message)
 
     def __dispatch(self, message):
-        # TODO
-        pass
+        with self.lock:
+            if self.listener:
+                self.listener.handle_message(message)
+
+    def set_listener(self, listener):
+        with self.lock:
+            self.listener = listener
 
     def __connect(self):
         self.context = ssl.create_default_context()
@@ -57,7 +64,10 @@ class Comm(Thread, metaclass=Singleton):
         c = 0
         data = b''
         while c < count:
-            new_data = self.connection.recv(count - c)
+            try:
+                new_data = self.connection.recv(count - c)
+            except Exception:
+                return None
             if len(new_data) == 0:
                 return None
             data += new_data
