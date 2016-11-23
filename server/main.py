@@ -10,6 +10,7 @@ def main(argv):
     g = Game()
     while(True):
         c.wait()
+        print(c.receive())
         # TODO: g.begin()
     return 0
 

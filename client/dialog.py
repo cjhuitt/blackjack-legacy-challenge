@@ -2,6 +2,7 @@
 
 import socket
 import ssl
+import struct
 import tkinter as tk
 
 class BlackjackDialog(tk.Frame):
@@ -15,9 +16,11 @@ class BlackjackDialog(tk.Frame):
                 socket.socket(socket.AF_INET),
                 server_hostname='localhost')
         connection.connect(('localhost', 2121))
-        # In real life, we'd check the cert against the server hostname.
+
         # TODO: Talk to stuff
-        connection.write('asdfghjkl'.encode('utf-8'))
+        data = b'asdfghjkl'
+        data_len = struct.pack('>i', len(data))
+        connection.send(data_len + data)
 
         self.pack(expand=True, fill=tk.BOTH)
 
