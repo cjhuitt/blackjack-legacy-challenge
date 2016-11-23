@@ -1,26 +1,11 @@
 #!/usr/bin/env python3
 
-import socket
-import ssl
-import struct
+from comm import Comm
 import tkinter as tk
 
 class BlackjackDialog(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master, padx=9, pady=9)
-
-        context = ssl.create_default_context()
-        context.load_verify_locations('../certs/server.crt')
-        # Hard-coded for localhost, because this is an exercise.
-        connection = context.wrap_socket(
-                socket.socket(socket.AF_INET),
-                server_hostname='localhost')
-        connection.connect(('localhost', 2121))
-
-        # TODO: Talk to stuff
-        data = b'asdfghjkl'
-        data_len = struct.pack('>i', len(data))
-        connection.send(data_len + data)
 
         self.pack(expand=True, fill=tk.BOTH)
 
@@ -74,13 +59,13 @@ class BlackjackDialog(tk.Frame):
         self.buttonStay.pack(side='left')
 
     def onWager(self):
-        # TODO
-        print('Wager:', self.spinWager.get())
+        Comm().send('wager {0}'.format(self.spinWager.get()))
+        # TODO: Update UI state?
 
     def onHit(self):
-        # TODO
-        print('Hit')
+        Comm().send('hit')
+        # TODO: Update UI state?
 
     def onStay(self):
-        # TODO
-        print('Stay')
+        Comm().send('stay')
+        # TODO: Update UI state?
