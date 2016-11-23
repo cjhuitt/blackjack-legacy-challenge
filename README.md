@@ -18,6 +18,7 @@ list of feature requests:
 - Place each player at a "table" with up to 4 other players.  Players at the
   same table have a shared game state (deck contents and order, dealer cards,
   etc) and can see each other's progress.
+- Enforce a minimum wager (configurable per server)
 - Dealer hits on soft 17 (configurable per server)
 
 You are also told to fix any bugs if they represent a substantial risk to your

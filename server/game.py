@@ -13,7 +13,20 @@ class Game(metaclass=Singleton):
         self.__dealer = Dealer()
 
     def begin(self):
-        # TODO: Accept wagers
+        wagers = {}
+        while len(wagers) < len(self.__players):
+            message = Comm().receive()
+            if message is None:
+                return
+            w = message.split(' ')
+            if w[0] == 'wager':
+                wagers[w[1]] = int(w[2])
+        for name, amount in wagers.items():
+            for player in self.__players:
+                if name == player.name():
+                    player.wager(amount)
+                    break
+
         self.deal()
         # TODO: Get player actions
         self.endHand()
@@ -35,37 +48,37 @@ class Game(metaclass=Singleton):
             for player in self.__players:
                 if player.score() == 21 and len(player.cards()) == 2:
                     amount = player.getWager() * 2.5
-                    Comm().send('win {0} {1}'.format(player.name(), amount)
+                    Comm().send('win {0} {1}'.format(player.name(), amount))
                     player.winWager(amount)
                 else:
                     amount = player.getWager() * 2
-                    Comm().send('win {0} {1}'.format(player.name(), amount)
+                    Comm().send('win {0} {1}'.format(player.name(), amount))
                     player.winWager(amount)
         elif self.__dealer.score() == 21 and len(self.__dealer.cards()) == 2:
             for player in self.__players:
                 if player.score() == 21 and len(player.cards()) == 2:
-                    Comm().send('push {0}'.format(player.name())
+                    Comm().send('push {0}'.format(player.name()))
                     player.winWager(player.getWager())
                 else:
                     amount = player.getWager()
-                    Comm().send('lose {0} {1}'.format(player.name(), amount)
+                    Comm().send('lose {0} {1}'.format(player.name(), amount))
                     player.loseWager()
         else:
             for player in self.__players:
                 if player.score() == 21 and len(player.cards()) == 2:
                     amount = player.getWager() * 2.5
-                    Comm().send('win {0} {1}'.format(player.name(), amount)
+                    Comm().send('win {0} {1}'.format(player.name(), amount))
                     player.winWager(amount)
                 elif player.score() > self.__dealer.score():
                     amount = player.getWager() * 2
-                    Comm().send('win {0} {1}'.format(player.name(), amount)
+                    Comm().send('win {0} {1}'.format(player.name(), amount))
                     player.winWager(amount)
                 elif player.score() == self.__dealer.score():
-                    Comm().send('push {0}'.format(player.name())
+                    Comm().send('push {0}'.format(player.name()))
                     player.winWager(player.getWager())
                 else:
                     amount = player.getWager()
-                    Comm().send('lose {0} {1}'.format(player.name(), amount)
+                    Comm().send('lose {0} {1}'.format(player.name(), amount))
                     player.loseWager()
 
         for player in self.__players:
