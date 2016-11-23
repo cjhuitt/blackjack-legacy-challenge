@@ -12,13 +12,13 @@ list of feature requests:
   game state (deck contents and order, dealer cards, etc) and is unaffected by
   the presence and actions of other players.
 - Allow player to split
-- Support for up to 8 decks (specific value configurable per table)
+- Support for up to 8 decks (configurable per server)
 - Allow player to buy insurance
 - Allow player to surrender (configurable per server)
 - Place each player at a "table" with up to 4 other players.  Players at the
   same table have a shared game state (deck contents and order, dealer cards,
   etc) and can see each other's progress.
-- Dealer hits on soft 17 (configurable per table)
+- Dealer hits on soft 17 (configurable per server)
 
 You are also told to fix any bugs if they represent a substantial risk to your
 employer's profits.  Anything that enables cheating or irritates the gaming
