@@ -22,7 +22,7 @@ list of feature requests:
 
 You are also told to fix any bugs if they represent a substantial risk to your
 employer's profits.  Anything that enables cheating or irritates the gaming
-commision falls into this category.  Such bugs take top priority.  Any other
+commission falls into this category.  Such bugs take top priority.  Any other
 bugs are lowest priority, so you can work on them if you manage to fix all
 high-priority bugs _and_ implement all the feature requests.
 
