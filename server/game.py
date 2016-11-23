@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from dealer import Dealer
+from deck import Deck
 from player import Player
 from singleton import Singleton
 
@@ -50,3 +51,4 @@ class Game(metaclass=Singleton):
         for player in self.__players:
             player.endHand()
         self.__dealer.endHand()
+        Deck().shuffle()
