@@ -24,6 +24,9 @@ class Player():
         self.__money -= amount
         self.__bet += amount
 
+    def getWager(self):
+        return self.__bet
+
     def loseWager(self):
         bet = self.__bet
         self.__bet = 0
@@ -69,6 +72,8 @@ class Player():
             if card.value() == 1:
                 aces += 1
                 score += 11
+            elif card.value() > 10:
+                score += 10
             else:
                 score += card.value()
         while score > 21 and aces > 0:
