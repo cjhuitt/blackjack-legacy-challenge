@@ -65,13 +65,13 @@ class BlackjackDialog(tk.Frame):
         print(message)
 
     def onWager(self):
-        Comm().send('wager {0}'.format(self.spinWager.get()))
+        Comm().send('wager {0} {1}'.format('player', self.spinWager.get()))
         # TODO: Update UI state?
 
     def onHit(self):
-        Comm().send('hit')
+        Comm().send('hit {0}'.format('player'))
         # TODO: Update UI state?
 
     def onStay(self):
-        Comm().send('stay')
+        Comm().send('stay {0}'.format('player'))
         # TODO: Update UI state?
