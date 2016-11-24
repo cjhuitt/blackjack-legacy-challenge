@@ -31,7 +31,17 @@ class Game(metaclass=Singleton):
                         break
 
             self.deal()
-            # TODO: Get player actions
+            while True:
+                message = Comm().receive()
+                if message is None:
+                    return
+                name, *params = message.split(' ')
+                if name == 'hit':
+                    card = self.__players[0].dealCard()
+                    Comm().send('deal {0} {1}'.format(
+                            self.__players[0].name(), str(card)))
+                if name == 'stay':
+                    break
             self.endHand()
 
     def deal(self):
@@ -53,6 +63,10 @@ class Game(metaclass=Singleton):
                     amount = player.getWager() * 2.5
                     Comm().send('win {0} {1}'.format(player.name(), amount))
                     player.winWager(amount)
+                elif player.score() > 21:
+                    amount = player.getWager()
+                    Comm().send('lose {0} {1}'.format(player.name(), amount))
+                    player.loseWager()
                 else:
                     amount = player.getWager() * 2
                     Comm().send('win {0} {1}'.format(player.name(), amount))
@@ -72,6 +86,10 @@ class Game(metaclass=Singleton):
                     amount = player.getWager() * 2.5
                     Comm().send('win {0} {1}'.format(player.name(), amount))
                     player.winWager(amount)
+                elif player.score() > 21:
+                    amount = player.getWager()
+                    Comm().send('lose {0} {1}'.format(player.name(), amount))
+                    player.loseWager()
                 elif player.score() > self.__dealer.score():
                     amount = player.getWager() * 2
                     Comm().send('win {0} {1}'.format(player.name(), amount))
