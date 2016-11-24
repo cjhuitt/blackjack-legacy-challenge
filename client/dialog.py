@@ -62,10 +62,9 @@ class BlackjackDialog(tk.Frame):
 
         self.lock = Lock()
         self.messages = queue.Queue()
-        Comm().set_listener(self)
-        self.after(100, self.processMessages)
+        self.after(100, self.process_messages)
 
-    def processMessages(self):
+    def process_messages(self):
         while True:
             try:
                 with self.lock:
@@ -83,7 +82,7 @@ class BlackjackDialog(tk.Frame):
                     self.onReset(*params)
             except queue.Empty:
                 break
-        self.after(100, self.processMessages)
+        self.after(100, self.process_messages)
 
     def onReset(self):
         self.labelDealerCards['text'] = ''

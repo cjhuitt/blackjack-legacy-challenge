@@ -7,6 +7,8 @@ import tkinter as tk
 class LoginDialog(tk.Toplevel):
     def __init__(self, master=None):
         super().__init__(master)
+        self.__authorized = False
+
         self.attributes('-topmost', True)
         self.grab_set()
 
@@ -38,15 +40,20 @@ class LoginDialog(tk.Toplevel):
 
         self.bind("<Return>", self.onOk)
         self.bind("<Escape>", self.onCancel)
+        self.bind("<Destroy>", self.onDestroy)
+
+    def onAuth(self):
+        self.__authorized = True
+        self.destroy()
 
     def onOk(self, event=None):
         Comm().send('login {0} {1}'.format(
-                self.username['text'], self.password['text']))
-        # TODO: Wait for response, if authorized, then: self.destroy()
-        #       Also, put the username and money somewhere for the main dialog
-        #       to use.
+                self.username.get(), self.password.get()))
+        # TODO: Put username somewhere for the main dialog to use.
 
     def onCancel(self, event=None):
         self.quit()
 
-    # TODO: Handle [x] window button.
+    def onDestroy(self, event=None):
+        if not self.__authorized:
+            self.quit()

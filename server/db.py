@@ -23,6 +23,6 @@ class Db(metaclass=Singleton):
 
     def auth(self, player, password):
         c = self.db.cursor()
-        c.execute('SELECT * FROM Players WHERE name=' + player +
-                  ' AND password=' + password)
+        c.execute('SELECT * FROM Players WHERE name="' + player + '" ' +
+                  ' AND password="' + password + '"')
         return c.fetchone() is not None

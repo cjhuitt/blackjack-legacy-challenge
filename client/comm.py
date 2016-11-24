@@ -26,7 +26,7 @@ class Comm(Thread, metaclass=Singleton):
     def __dispatch(self, message):
         with self.lock:
             if self.listener:
-                self.listener.handle_message(message)
+                self.listener(message)
 
     def set_listener(self, listener):
         with self.lock:

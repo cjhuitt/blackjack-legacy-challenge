@@ -15,23 +15,24 @@ class Game(metaclass=Singleton):
         self.__dealer = Dealer()
 
     def begin(self):
-        wagers = {}
-        while len(wagers) < len(self.__players):
-            message = Comm().receive()
-            if message is None:
-                return
-            w = message.split(' ')
-            if w[0] == 'wager':
-                wagers[w[1]] = int(w[2])
-        for name, amount in wagers.items():
-            for player in self.__players:
-                if name == player.name():
-                    player.wager(amount)
-                    break
+        while True:
+            wagers = {}
+            while len(wagers) < len(self.__players):
+                message = Comm().receive()
+                if message is None:
+                    return
+                w = message.split(' ')
+                if w[0] == 'wager':
+                    wagers[w[1]] = int(w[2])
+            for name, amount in wagers.items():
+                for player in self.__players:
+                    if name == player.name():
+                        player.wager(amount)
+                        break
 
-        self.deal()
-        # TODO: Get player actions
-        self.endHand()
+            self.deal()
+            # TODO: Get player actions
+            self.endHand()
 
     def deal(self):
         for _ in range(2):
