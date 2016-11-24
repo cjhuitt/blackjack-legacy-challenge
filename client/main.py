@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from comm import Comm
+from user import User
 import dialog
 import login
 import sys
@@ -21,8 +22,8 @@ def main(argv):
         name, *params = message.split(' ')
         if name == 'auth':
             def and_then():
-                # TODO: Put money somewhere for the main dialog to use.
-                Comm().set_listener(dlg.handle_message)
+                User().money = int(params[0])
+                dlg.activate()
                 login_dlg.onAuth()
             root.after(1, and_then)
         elif name == 'auth_fail':

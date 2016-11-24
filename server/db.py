@@ -15,6 +15,11 @@ class Db(metaclass=Singleton):
             players.append(Player(name, money))
         return players
 
+    def money(self, player):
+        c = self.db.cursor()
+        c.execute('SELECT money FROM Players WHERE name="' + player + '"')
+        return int(c.fetchone()[0])
+
     def set_money(self, player, money):
         c = self.db.cursor()
         c.execute('UPDATE Players SET money=' + str(money) +

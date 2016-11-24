@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from comm import Comm
+from user import User
 import tkinter as tk
 
 
@@ -49,7 +50,7 @@ class LoginDialog(tk.Toplevel):
     def onOk(self, event=None):
         Comm().send('login {0} {1}'.format(
                 self.username.get(), self.password.get()))
-        # TODO: Put username somewhere for the main dialog to use.
+        User().name = self.username.get()
 
     def onCancel(self, event=None):
         self.quit()

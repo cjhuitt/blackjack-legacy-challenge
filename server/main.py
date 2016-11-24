@@ -16,7 +16,7 @@ def main(argv):
             name, *params = message.split(' ')
             if name == 'login':
                 if Db().auth(*params):
-                    money = 0 # TODO: Read this from Db
+                    money = Db().money(params[0])
                     Comm().send('auth {0}'.format(money))
                     g.begin()
                 else:

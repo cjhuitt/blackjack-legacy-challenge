@@ -2,6 +2,7 @@
 
 from comm import Comm
 from threading import Lock
+from user import User
 import queue
 import tkinter as tk
 
@@ -109,3 +110,7 @@ class BlackjackDialog(tk.Frame):
     def onStay(self):
         Comm().send('stay {0}'.format('player'))
         # TODO: Update UI state?
+
+    def activate(self):
+        self.labelPlayer['text'] = '{0} - ${1}'.format(User().name, User().money)
+        Comm().set_listener(self.handle_message)
