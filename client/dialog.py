@@ -74,26 +74,40 @@ class BlackjackDialog(tk.Frame):
                 if name == 'deal':
                     self.onDeal(*params)
                 elif name == 'win':
-                    pass
+                    self.onWin(*params)
                 elif name == 'push':
                     pass
                 elif name == 'lose':
-                    pass
+                    self.onLose(*params)
                 elif name == 'reset':
                     self.onReset(*params)
             except queue.Empty:
                 break
         self.after(100, self.process_messages)
 
+    def onWin(self, player, amount):
+        if player == User().name:
+            User().money += (int(amount) - int(self.spinWager.get()))
+            self.labelPlayer['text'] = '{0} - ${1}'.format(User().name, User().money)
+
+    def onLose(self, player, amount):
+        if player == User().name:
+            User().money -= int(amount)
+            self.labelPlayer['text'] = '{0} - ${1}'.format(User().name, User().money)
+
     def onReset(self):
         self.labelDealerCards['text'] = ''
         self.labelPlayerCards['text'] = ''
-        # TODO: More
+        self.spinWager['state'] = tk.NORMAL
+        self.buttonWager['state'] = tk.NORMAL
+        self.buttonHit['state'] = tk.DISABLED
+        self.buttonStay['state'] = tk.DISABLED
 
     def onDeal(self, player, card):
         if player == 'dealer':
             self.labelDealerCards['text'] += card + ' '
-        # TODO: Update player cards.
+        elif player == User().name:
+            self.labelPlayerCards['text'] += card + ' '
 
     def handle_message(self, message):
         with self.lock:
@@ -101,15 +115,18 @@ class BlackjackDialog(tk.Frame):
 
     def onWager(self):
         Comm().send('wager {0} {1}'.format('player', self.spinWager.get()))
-        # TODO: Update UI state?
+        self.spinWager['state'] = tk.DISABLED
+        self.buttonWager['state'] = tk.DISABLED
+        self.buttonHit['state'] = tk.NORMAL
+        self.buttonStay['state'] = tk.NORMAL
 
     def onHit(self):
         Comm().send('hit {0}'.format('player'))
-        # TODO: Update UI state?
 
     def onStay(self):
         Comm().send('stay {0}'.format('player'))
-        # TODO: Update UI state?
+        self.buttonHit['state'] = tk.DISABLED
+        self.buttonStay['state'] = tk.DISABLED
 
     def activate(self):
         self.labelPlayer['text'] = '{0} - ${1}'.format(User().name, User().money)
