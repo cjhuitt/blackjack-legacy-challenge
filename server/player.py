@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
 
+import db
 from deck import Deck
 
 
 class Player():
-    def __init__(self, money):
+    def __init__(self, name, money):
         self.__cards = []
+        self.__name = name
         self.__money = money
         self.__bet = 0
 
     def name(self):
-        return 'player'
+        return self.__name
 
     def money(self):
         return self.__money
@@ -27,6 +29,7 @@ class Player():
         if self.__money < amount:
             raise Exception("Not enough money for wager.")
         self.__money -= amount
+        db.Db().set_money(self.__name, self.__money)
         self.__bet += amount
 
     def getWager(self):
@@ -40,6 +43,7 @@ class Player():
     def winWager(self, payout):
         self.__bet = 0
         self.__money += payout
+        db.Db().set_money(self.__name, self.__money)
 
     def hit(self):
         if self.score() >= 21:
@@ -53,6 +57,7 @@ class Player():
         if self.__money < self.__bet:
             raise Exception("Not enough money to double down.")
         self.__money -= self.__bet
+        db.Db().set_money(self.__name, self.__money)
         self.__bet *= 2
         self.hit()
         self.stay()

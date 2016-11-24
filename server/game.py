@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from comm import Comm
+from db import Db
 from dealer import Dealer
 from deck import Deck
 from player import Player
@@ -10,7 +11,7 @@ import time
 
 class Game(metaclass=Singleton):
     def __init__(self):
-        self.__players = [Player(1000)] # TODO: Load player money from DB.
+        self.__players = Db().players()
         self.__dealer = Dealer()
 
     def begin(self):
