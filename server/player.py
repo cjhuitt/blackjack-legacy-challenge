@@ -61,6 +61,7 @@ class Player():
         self.__bet *= 2
         self.hit()
         self.stay()
+        return self.__cards[-1]
 
     def split(self):
         # TODO

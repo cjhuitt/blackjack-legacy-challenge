@@ -40,6 +40,11 @@ class Game(metaclass=Singleton):
                     card = self.__players[0].dealCard()
                     Comm().send('deal {0} {1}'.format(
                             self.__players[0].name(), str(card)))
+                if name == 'double':
+                    card = self.__players[0].doubleDown()
+                    Comm().send('deal {0} {1}'.format(
+                            self.__players[0].name(), str(card)))
+                    break
                 if name == 'stay':
                     break
             card = self.__dealer.dealCard()

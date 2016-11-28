@@ -55,6 +55,12 @@ class BlackjackDialog(tk.Frame):
         self.buttonHit['state'] = tk.DISABLED
         self.buttonHit.pack(side='left')
 
+        self.buttonDouble = tk.Button(self.frameCommands)
+        self.buttonDouble['text'] = 'Double Down'
+        self.buttonDouble['command'] = self.onDouble
+        self.buttonDouble['state'] = tk.DISABLED
+        self.buttonDouble.pack(side='left')
+
         self.buttonStay = tk.Button(self.frameCommands)
         self.buttonStay['text'] = 'Stay'
         self.buttonStay['command'] = self.onStay
@@ -118,14 +124,28 @@ class BlackjackDialog(tk.Frame):
         self.spinWager['state'] = tk.DISABLED
         self.buttonWager['state'] = tk.DISABLED
         self.buttonHit['state'] = tk.NORMAL
+        self.buttonDouble['state'] = tk.NORMAL
         self.buttonStay['state'] = tk.NORMAL
 
     def onHit(self):
+        self.buttonDouble['state'] = tk.DISABLED
         Comm().send('hit {0}'.format('player'))
+
+    def onDouble(self):
+        Comm().send('double {0}'.format('player'))
+        self.buttonHit['state'] = tk.DISABLED
+        self.buttonDouble['state'] = tk.DISABLED
+        self.buttonStay['state'] = tk.DISABLED
+        wager = 2 * int(self.spinWager.get())
+        self.spinWager['state'] = tk.NORMAL
+        self.spinWager.delete(0, self.spinWager.index(tk.END))
+        self.spinWager.insert(0, str(wager))
+        self.spinWager['state'] = tk.DISABLED
 
     def onStay(self):
         Comm().send('stay {0}'.format('player'))
         self.buttonHit['state'] = tk.DISABLED
+        self.buttonDouble['state'] = tk.DISABLED
         self.buttonStay['state'] = tk.DISABLED
 
     def activate(self):
