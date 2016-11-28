@@ -27,9 +27,6 @@ class Deck(metaclass=Singleton):
         def suit(self):
             return self.__suit
 
-        def discard(self):
-            self.__deck._discard([self])
-
     def __init__(self):
         self.__discarded = []
         self.__cards = []
@@ -46,5 +43,5 @@ class Deck(metaclass=Singleton):
         self.__discarded = []
         shuffle(self.__cards)
 
-    def _discard(self, cards):
+    def discard(self, cards):
         self.__discarded.extend(cards)
