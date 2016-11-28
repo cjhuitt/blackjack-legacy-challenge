@@ -42,6 +42,8 @@ class Game(metaclass=Singleton):
                             self.__players[0].name(), str(card)))
                 if name == 'stay':
                     break
+            card = self.__dealer.dealCard()
+            Comm().send('deal {0} {1}'.format(self.__dealer.name(), str(card)))
             self.endHand()
 
     def deal(self):
@@ -49,8 +51,6 @@ class Game(metaclass=Singleton):
             for player in self.__players:
                 card = player.dealCard()
                 Comm().send('deal {0} {1}'.format(player.name(), str(card)))
-        card = self.__dealer.dealCard()
-        Comm().send('deal {0} {1}'.format(self.__dealer.name(), str(card)))
         card = self.__dealer.dealCard()
         Comm().send('deal {0} {1}'.format(self.__dealer.name(), str(card)))
 
