@@ -58,6 +58,16 @@ class HandleAuthTests(unittest.TestCase):
 
         self.assertTrue('50' in comms.sent_message)
 
+    def test_returns_auth_fail_on_invalid_login(self):
+        params = ['user', 'passwd']
+        comms = CommsStub()
+        db = DbStub()
+        game = GameStub()
+
+        db.pass_auth = False
+        main.handle_auth(command='login', params=params, game=game, db=db, comms=comms)
+
+        self.assertEqual(comms.sent_message, 'auth_fail')
 
 
 if __name__ == '__main__':
