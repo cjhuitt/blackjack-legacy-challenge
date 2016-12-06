@@ -1,5 +1,6 @@
+* Putting a space in the username or password field crashes the server
+* Hitting too many times crashes the server
+
 Password field on login dialog is in plain text
 No notification if login failed
 username/password sent as text(no hash)
-Putting a space in the username or password field crashes the server
-
