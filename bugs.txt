@@ -3,4 +3,5 @@
 
 Password field on login dialog is in plain text
 No notification if login failed
+No brute force attack mitigation
 username/password sent as text(no hash)
