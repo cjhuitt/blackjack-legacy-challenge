@@ -21,10 +21,10 @@ def main(argv):
     g = Game()
     while (True):
         c.wait()
-        message = Comm().receive()
+        message = c.receive()
         if message is not None:
             name, *params = message.split(' ')
-            handle_auth(command=name, params=params, game=g, db=Db(), comms=Comm())
+            handle_auth(command=name, params=params, game=g, db=Db(), comms=c)
     return 0
 
 
