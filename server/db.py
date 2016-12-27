@@ -4,6 +4,7 @@ from player import Player
 from singleton import Singleton
 import sqlite3
 
+
 class Db(metaclass=Singleton):
     def __init__(self):
         self.db = sqlite3.connect('blackjack.db')
@@ -31,3 +32,8 @@ class Db(metaclass=Singleton):
         c.execute('SELECT * FROM Players WHERE name="' + player + '" ' +
                   ' AND password="' + password + '"')
         return c.fetchone() is not None
+
+    def print(self):
+        c = self.db.cursor()
+        for name, password, money in c.execute('SELECT name,password,money FROM Players'):
+            print('{} ({}): {}'.format(name, password, money))
