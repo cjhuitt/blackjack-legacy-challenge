@@ -18,7 +18,7 @@ class Deck(metaclass=Singleton):
                 'diamonds': '♦',
                 'spades': '♠'
             }
-            values = [ '', 'A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K' ];
+            values = ['', 'A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
             return values[self.__value] + suits[self.__suit]
 
         def value(self):
@@ -30,7 +30,7 @@ class Deck(metaclass=Singleton):
     def __init__(self):
         self.__discarded = []
         self.__cards = []
-        for value in range(1,14):
+        for value in range(1, 14):
             for suit in ['hearts', 'clubs', 'diamonds', 'spades']:
                 self.__cards.append(Deck.__Card(self, value, suit))
         self.shuffle()
