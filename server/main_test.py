@@ -69,6 +69,17 @@ class HandleAuthTests(unittest.TestCase):
 
         self.assertEqual(comms.sent_message, 'auth_fail')
 
+    def test_returns_auth_fail_on_too_many_parameters(self):
+        params = ['user', 'last', 'passwd']
+        comms = CommsStub()
+        db = DbStub()
+        game = GameStub()
+
+        db.pass_auth = False
+        main.handle_auth(command='login', params=params, game=game, db=db, comms=comms)
+
+        self.assertEqual(comms.sent_message, 'auth_fail')
+
 
 if __name__ == '__main__':
     unittest.main()

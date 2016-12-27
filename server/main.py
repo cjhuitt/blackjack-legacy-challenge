@@ -7,6 +7,10 @@ import sys
 
 
 def handle_auth(command, params, game, db, comms):
+    if len(params) != 2:
+        comms.send('auth_fail')
+        return
+
     if command == 'login':
         if db.auth(*params):
             money = db.money(params[0])
