@@ -6,21 +6,29 @@ from game import Game
 import sys
 
 
+def handle_auth(command, params, game, db, comms):
+    if len(params) != 2:
+        comms.send('auth_fail')
+        return
+
+    if command == 'login':
+        if db.auth(*params):
+            money = db.money(params[0])
+            comms.send('auth {0}'.format(money))
+            game.begin()
+        else:
+            comms.send('auth_fail')
+
+
 def main(argv):
     c = Comm()
     g = Game()
     while (True):
         c.wait()
-        message = Comm().receive()
+        message = c.receive()
         if message is not None:
             name, *params = message.split(' ')
-            if name == 'login':
-                if Db().auth(*params):
-                    money = Db().money(params[0])
-                    Comm().send('auth {0}'.format(money))
-                    g.begin()
-                else:
-                    Comm().send('auth_fail')
+            handle_auth(command=name, params=params, game=g, db=Db(), comms=c)
     return 0
 
 
