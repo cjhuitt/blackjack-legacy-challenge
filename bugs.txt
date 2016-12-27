@@ -1,9 +1,0 @@
-** Putting a space in the username or password field crashes the server
-** Password is kept in plain text in database
-
-* Hitting until you go over doesn't cause the bet to be lost (on the client UI) or reset for another bet
-
-Password field on login dialog is in plain text
-No notification if login failed
-No brute force attack mitigation
-username/password sent as text(no hash)
