@@ -1,7 +1,0 @@
-* Password is kept in plain text in database
-
-Password field on login dialog is in plain text
-No notification if login failed
-username/password sent as text(no hash)
-Putting a space in the username or password field crashes the server
-
