@@ -42,7 +42,7 @@ class HandleAuthTests(unittest.TestCase):
         game = GameStub()
 
         db.pass_auth = True
-        main.handle_auth(command='login', params=params, game=game, db=db, comms=comms)
+        main.handle_auth(params=params, game=game, db=db, comms=comms)
 
         self.assertTrue(game.began)
 
@@ -54,7 +54,7 @@ class HandleAuthTests(unittest.TestCase):
 
         db.pass_auth = True
         db.user_money = 50
-        main.handle_auth(command='login', params=params, game=game, db=db, comms=comms)
+        main.handle_auth(params=params, game=game, db=db, comms=comms)
 
         self.assertTrue('50' in comms.sent_message)
 
@@ -65,7 +65,7 @@ class HandleAuthTests(unittest.TestCase):
         game = GameStub()
 
         db.pass_auth = False
-        main.handle_auth(command='login', params=params, game=game, db=db, comms=comms)
+        main.handle_auth(params=params, game=game, db=db, comms=comms)
 
         self.assertEqual(comms.sent_message, 'auth_fail')
 
@@ -76,7 +76,7 @@ class HandleAuthTests(unittest.TestCase):
         game = GameStub()
 
         db.pass_auth = False
-        main.handle_auth(command='login', params=params, game=game, db=db, comms=comms)
+        main.handle_auth(params=params, game=game, db=db, comms=comms)
 
         self.assertEqual(comms.sent_message, 'auth_fail')
 
