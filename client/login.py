@@ -49,7 +49,7 @@ class LoginDialog(tk.Toplevel):
 
     def onOk(self, event=None):
         Comm().send('login {0} {1}'.format(
-                self.username.get(), self.password.get()))
+            self.username.get(), self.password.get()))
         User().name = self.username.get()
 
     def onCancel(self, event=None):

@@ -25,14 +25,17 @@ def main(argv):
                 User().money = int(params[0])
                 dlg.activate()
                 login_dlg.onAuth()
+
             root.after(1, and_then)
         elif name == 'auth_fail':
             pass
+
     Comm().set_listener(handle_message)
 
     root.mainloop()
     c.disconnect()
     return 0
+
 
 if __name__ == '__main__':
     sys.exit(main(sys.argv))

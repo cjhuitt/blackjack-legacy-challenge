@@ -37,8 +37,8 @@ class Comm(Thread, metaclass=Singleton):
         self.context.load_verify_locations('../certs/server.crt')
         # Hard-coded for localhost, because this is an exercise.
         self.connection = self.context.wrap_socket(
-                socket.socket(socket.AF_INET),
-                server_hostname='localhost')
+            socket.socket(socket.AF_INET),
+            server_hostname='localhost')
         self.connection.connect(('localhost', 2121))
 
     def disconnect(self):

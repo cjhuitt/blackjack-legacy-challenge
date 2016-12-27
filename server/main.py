@@ -9,7 +9,7 @@ import sys
 def main(argv):
     c = Comm()
     g = Game()
-    while(True):
+    while (True):
         c.wait()
         message = Comm().receive()
         if message is not None:
@@ -22,6 +22,7 @@ def main(argv):
                 else:
                     Comm().send('auth_fail')
     return 0
+
 
 if __name__ == '__main__':
     sys.exit(main(sys.argv))
