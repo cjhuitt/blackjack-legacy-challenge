@@ -6,6 +6,7 @@ from user import User
 import queue
 import tkinter as tk
 
+
 class BlackjackDialog(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master, padx=9, pady=9)

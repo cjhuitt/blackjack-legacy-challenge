@@ -10,8 +10,8 @@ class Comm(metaclass=Singleton):
     def __init__(self):
         self.context = ssl.create_default_context()
         self.context.load_cert_chain(
-                certfile='../certs/server.crt',
-                keyfile='../certs/server.key')
+            certfile='../certs/server.crt',
+            keyfile='../certs/server.key')
         self.context.verify_mode = ssl.CERT_OPTIONAL
         self.context.check_hostname = False
         self.bindsocket = socket.socket()
